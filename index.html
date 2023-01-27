@@ -6,6 +6,7 @@
   <title>Progate</title>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
+  <link href="bootstrap.min.css" rel="stylesheet" async="">
 </head>
 <body>
   <header>
@@ -33,6 +34,23 @@
       </div>
     </div>
   </div>
+
+  <div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+        </div><!-- /.modal-header -->
+        <div class="modal-body">
+          <p>入力途中ですがキャンセルしてよろしいですか？</p>
+        </div><!-- /.modal-body -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">いいえ</button>
+          <button type="button" id="back" class="btn btn-primary">はい</button>
+        </div><!-- /.modal-footer -->
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
   <div class="lesson-wrapper">
     <div class="container">
       <div class="heading">
@@ -87,12 +105,30 @@
     </div>
   </footer>
 
+  <script src="js/jquery-3.6.3.min.js"></script>
+  <script src="js/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
+  <script src="js/bootstrap.min.js"></script>
   <script>
-    function beforeUnload(event){
-        event.returnValue = 'Check';
+    $(function(){
+  var hash = location.hash;
+  if(hash != '#message') {
+    // pushStateで現在のURLを履歴にスタックする
+    history.pushState(null,null,location.href);
+    // URLにtagを設置する
+    location.hash = '#message';
+  }
+  // URLが変更されるのを監視
+  $(window).on('popstate',function(event){
+    if(location.hash != '#message') {
+      // モーダルを実行
+      $('#modal').modal('show');
     }
-    
-    window.onbeforeunload = beforeUnload;
+  });
+  $('#back').click(function() {
+    history.back();
+    return false;
+  });
+});
     </script>
 </body>
 </html>
