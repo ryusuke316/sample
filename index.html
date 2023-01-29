@@ -137,7 +137,7 @@ $('#back_button').click(function() {
 <!-- 確認ダイアログで、ブラウザバックを取りやめた場合の処理。 -->
 <!-- ダイアログを閉じ、次にブラウザバックされたときに備え、ハッシュつきURLを再度履歴に追加する。 -->
 $('#not_button').click(function() {
-	$('#not_button').blur();
+	$('#modal').click();
 	$('#modal').modal('hide');
 	var hash = location.hash;
 	if(hash != '#message') {
