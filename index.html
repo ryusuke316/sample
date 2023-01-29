@@ -110,25 +110,31 @@
   <script src="js/bootstrap.min.js"></script>
   <script>
 $(function() {
+		<!-- iOS向けブラウザバック防止のための準備。 -->
+		<!-- URL末尾にハッシュ（#～の部分）をつけ、履歴に追加する。 -->
+		<!-- これにより、ブラウザバックした際はまずハッシュなしのURLが呼ばれるようにする（外部通信なしのページ内移動となる） -->
 		var hash = location.hash;
 		if(hash != '#message') {
 			history.pushState(null,null,location.href);
 			history.replaceState(null,null,'#message');
 		}
+		<!-- ハッシュ変更をトリガーに、確認ダイアログを表示する。 -->
 		$(window).on('hashchange',function(event){
 			if(location.hash != '#message') {
 				$('#modal').modal('show');
 			}
 		});
 });
-
+<!-- 確認ダイアログで、ブラウザバックを決定した場合の処理。ブラウザバックを行う。 -->
 $('#back_button').click(function() {
 	history.back(-1);
 	return false;
 });
+<!-- 確認ダイアログで、ブラウザバックを取りやめた場合の処理。 -->
+<!-- ダイアログを閉じ、次にブラウザバックされたときに備え、ハッシュつきURLを再度履歴に追加する。 -->
 $('#not_button').click(function() {
 	$('#modal').modal('hide');
-  var hash = location.hash;
+	var hash = location.hash;
 		if(hash != '#message') {
 			history.pushState(null,null,location.href);
 			history.replaceState(null,null,'#message');
