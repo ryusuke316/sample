@@ -121,7 +121,9 @@ $(function() {
 		<!-- ハッシュ変更をトリガーに、確認ダイアログを表示する。 -->
 		$(window).on('hashchange',function(event){
 			if(location.hash != '#message') {
-				<!-- var $('#modal').modal('show'); -->
+				var $('#modal').modal('show');
+				<!-- 
+				confirmは使用不可。hashchangeイベントとセットでは、iOS Safariだと動かず。
 				result = window.confirm('戻りますか？');
 				if(result) {
 					history.back(-1);
@@ -133,7 +135,7 @@ $(function() {
 						history.replaceState(null,null,'#message');
 					}
 				}
-				
+				-->
 			}
 		});
 });
