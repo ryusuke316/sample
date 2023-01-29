@@ -123,6 +123,9 @@ $(function() {
 		$(window).on('hashchange',function(event){
 			if(location.hash != '#message') {
 				$('#modal').modal('show');
+				<!-- モーダルにフォーカスあてておく。 -->
+				<!-- iOS Chromeで、モーダルを一度タップしないとボタン押下が1発で反応しなかったため。 -->
+				$('#modal').focus();
 			}
 		});
 });
